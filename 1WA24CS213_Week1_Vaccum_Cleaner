@@ -1,0 +1,40 @@
+# Vacuum Cleaner Agent
+
+rooms = input("Enter rooms (D = Dirty, C = Clean): ").upper().split()
+
+position = 0
+
+print("\nInitial rooms:", rooms)
+print("Vacuum starts at room 1\n")
+
+while position < len(rooms):
+
+    # If room is dirty, clean it
+    if rooms[position] == "D":
+        print("Room", position + 1, "is DIRTY")
+        print("Action: CLEAN")
+        rooms[position] = "C"
+        print("Room", position + 1, "is now CLEAN")
+
+    # Move right
+    if position < len(rooms) - 1:
+        print("Action: MOVE RIGHT")
+        position += 1
+    else:
+        break
+
+print("\nAll rooms are clean!")
+print("Final rooms:", rooms)
+
+OUTPUT:
+Enter rooms (D = Dirty, C = Clean): D
+
+Initial rooms: ['D']
+Vacuum starts at room 1
+
+Room 1 is DIRTY
+Action: CLEAN
+Room 1 is now CLEAN
+
+All rooms are clean!
+Final rooms: ['C']
