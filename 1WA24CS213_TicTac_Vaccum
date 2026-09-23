@@ -1,0 +1,116 @@
+import random
+
+board = [" "] * 9
+
+def display():
+    print()
+    print(f" {board[0]} | {board[1]} | {board[2]}")
+    print("---+---+---")
+    print(f" {board[3]} | {board[4]} | {board[5]}")
+    print("---+---+---")
+    print(f" {board[6]} | {board[7]} | {board[8]}")
+    print()
+
+def check_winner(player):
+    wins = [
+        (0, 1, 2), (3, 4, 5), (6, 7, 8),
+        (0, 3, 6), (1, 4, 7), (2, 5, 8),
+        (0, 4, 8), (2, 4, 6)
+    ]
+
+    return any(
+        all(board[i] == player for i in combo)
+        for combo in wins
+    )
+
+def bot_move():
+    available = [i for i in range(9) if board[i] == " "]
+    move = random.choice(available)
+    board[move] = "O"
+    print(f"Bot chose position {move + 1}")
+
+print("TIC-TAC-TOE")
+print("You are X. The bot is O.")
+print("Choose positions 1-9.")
+
+while True:
+    display()
+
+    # Player's turn
+    while True:
+        try:
+            move = int(input("Your move (1-9): ")) - 1
+
+            if 0 <= move < 9 and board[move] == " ":
+                board[move] = "X"
+                break
+
+            print("That position is already taken or invalid.")
+        except ValueError:
+            print("Please enter a number from 1 to 9.")
+
+    if check_winner("X"):
+        display()
+        print("🎉 You win!")
+        break
+
+    if " " not in board:
+        display()
+        print("It's a draw!")
+        break
+
+    # Bot's turn
+    bot_move()
+
+    if check_winner("O"):
+        display()
+        print("🤖 Bot wins!")
+        break
+
+    if " " not in board:
+        display()
+        print("It's a draw!")
+        break
+
+
+OUTPUT:
+
+TIC-TAC-TOE
+You are X. The bot is O.
+Choose positions 1-9.
+
+   |   |  
+---+---+---
+   |   |  
+---+---+---
+   |   |  
+
+Your move (1-9): 1
+Bot chose position 4
+
+ X |   |  
+---+---+---
+ O |   |  
+---+---+---
+   |   |  
+
+Your move (1-9): 3
+Bot chose position 8
+
+ X |   | X
+---+---+---
+ O |   |  
+---+---+---
+   | O |  
+
+Your move (1-9): 2
+
+ X | X | X
+---+---+---
+ O |   |  
+---+---+---
+   | O |  
+
+🎉 You win!
+
+
